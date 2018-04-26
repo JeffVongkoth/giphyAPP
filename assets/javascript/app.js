@@ -66,7 +66,7 @@ $('#gifs').empty();
 
         
     $(document.body).on("click", ".img", function() {
-
+        $('body').css({'background-size': '100% 100%'});
         var state = $(this).attr("data-state");
         // console.log(state, gifURL, imgURL);
         if (state === "still") {
@@ -85,7 +85,9 @@ $('#gifs').empty();
     // console.log(results);
     renderButtons();
     $(document).on("click", ".gif-btn", showGif);
-
+$('.gif-btn').click(function() {
+    $('body').css({'background-size': '100% 100%'});
+});
 });
 
 
