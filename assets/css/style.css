@@ -1,3 +1,31 @@
 .gif {
     display:inline-block;
+    margin: 10px 10px 10px 10px;
+    
+}
+.img {
+    border-radius: 15px;
+}
+#gifs {
+    margin: 0 100px 0 100px;
+    
+    background: green;
+}
+
+#gif-form {
+    margin: 5% 0 5% 35%;
+}
+
+.gif-btn {
+    background-color:teal;
+    border-radius: 10px;
+    margin: 10px;
+    box-shadow:none;
+}
+
+#gifButtons {
+    background: red;
+    margin-left: 15%;
+    margin-right: 20%;
+    
 }

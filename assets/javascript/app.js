@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // create array with strings to become buttons
-    var topics = ['car burn outs', 'r34', 'toyota supra', 'hoonigan', 'rx7', 'wrx', 'ferrari', 'lamborghini'];
+    var topics = ['r34', 'toyota supra', 'hoonigan', 'rx7', 'wrx', 'ferrari', 'lamborghini', 's2000', 'mitsubishi evo', 'subaru sti'];
 
 
     //display gif function 
@@ -11,7 +11,7 @@ $('#gifs').empty();
         //api key
 
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=dhP9Khaw2UwpuDdNrbtPoSFPlideR0x8&&limit=10";
-console.log(topic);
+// console.log(topic);
         //ajax call to get the data we need
         $.ajax({
             url: queryURL,
@@ -24,22 +24,26 @@ console.log(topic);
             var rating = results[i].rating;
             var x = $('<p>').text('Rating: ' + rating);
             var imgURL = results[i].images.fixed_height_still.url;
-            var image = $('<img>').attr('src', imgURL)
-            image.attr('data-state', 'still');
+            var gifURL = results[i].images.fixed_height.url;
+            var image = $('<img>').attr('src', imgURL);
+            image.attr('data-state', 'still')
+            image.attr('still', imgURL);
+            image.attr('animate', gifURL)
+            image.addClass('img');
             gifDiv.append(x);
             gifDiv.append(image);
             $("#gifs").append(gifDiv);
-
-            console.log(results);
+            console.log(gifURL, imgURL);
+            
             }
-        })
+    })  
     }
     function renderButtons() {
 
         $("#gifButtons").empty();
         for (var i = 0; i < topics.length; i++) {
 
-            var a = $("<button>");
+            var a = $('<button type="button" class="btn btn-default btn-md">');
  
             a.addClass("gif-btn");
          
@@ -60,18 +64,24 @@ console.log(topic);
         renderButtons();
     })
 
-    // $('.gif').click(function() {
-    //     var state = $(this).attr("data-state");
-    //     if (state === 'still') {
-    //         $(this).attr("src", );
-    //     $(this).attr("data-state", "animate");
-    //     }
-    //     else {
-    //         $(this).attr("src", $(this).attr("data-still"));
-    //         $(this).attr("data-state", "still");
-    //       }
-    // });
+        
+    $(document.body).on("click", ".img", function() {
 
+        var state = $(this).attr("data-state");
+        // console.log(state, gifURL, imgURL);
+        if (state === "still") {
+            var animateUrl = $(this).attr("animate");
+            $(this).attr("src", animateUrl);
+            $(this).attr("data-state", "animate");
+          } else {
+            var stillUrl = $(this).attr("still");
+            $(this).attr('src', stillUrl);
+            $(this).attr("data-state", "still");
+          }
+            
+    });
+    
+    
     // console.log(results);
     renderButtons();
     $(document).on("click", ".gif-btn", showGif);
